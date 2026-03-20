@@ -9,6 +9,7 @@ This repository contains configurations for:
 - **Nushell** - Modern shell with structured data pipelines
 - **Starship** - Fast, customizable shell prompt
 - **Neovim** - Modern text editor with LSP, file manager, and custom theme
+- **Tmux** - Terminal multiplexer for managing multiple panes and windows
 
 All components share a unified **One Dark Pro Monokai Darker** color theme for visual consistency.
 
@@ -38,6 +39,11 @@ All components share a unified **One Dark Pro Monokai Darker** color theme for v
 5. **Yazi** - File manager (for Neovim integration)
    ```bash
    brew install yazi
+   ```
+
+6. **Tmux** - Terminal multiplexer
+   ```bash
+   brew install tmux
    ```
 
 ### Optional but Recommended
@@ -149,6 +155,35 @@ ln -sf ~/terminal/nvim ~/.config/nvim
 
 **See [nvim/README.md](nvim/README.md) for detailed Neovim configuration, keybindings, and customization.**
 
+### 6. Install Tmux Configuration
+
+```bash
+# Create config directory
+mkdir -p ~/.config/tmux
+
+# Symlinks are automatically created during installation
+# Main config: ~/.tmux.conf → ~/.config/tmux/tmux.conf
+# Reset config: ~/.config/tmux/tmux.reset.conf
+```
+
+**Configuration includes:**
+- Ctrl-A as the prefix key
+- Nushell as the default shell (with bash as fallback for compatibility)
+- Vi-mode navigation (hjkl instead of arrow keys)
+- Smart pane splits that preserve current directory
+- Mouse support enabled
+- 256 color support
+- Status bar at the top (macOS style)
+
+**Starting tmux:**
+```bash
+# Use the alias defined in nushell
+tm
+
+# Or manually create a new session:
+tmux new-session -s work -c $env.PWD
+```
+
 ## Post-Installation
 
 ### Set Nushell as Default Shell
@@ -216,6 +251,44 @@ The configuration includes these useful aliases:
 - `gp` → `git push`
 - `gl` → `git log`
 - `gd` → `git diff`
+
+### Tmux Key Bindings
+
+**Prefix key:** `Ctrl-A` (then press the key below)
+
+**Session and window management:**
+- `Ctrl-C` - Create new window (in home directory)
+- `Ctrl-D` - Detach from session
+- `Ctrl-A` - Go to last window
+- `H` - Previous window
+- `L` - Next window
+- `S` - Choose session
+- `w` or `W` - List windows
+- `r` - Rename window
+
+**Pane management:**
+- `s` - Split pane horizontally (preserves current directory)
+- `v` - Split pane vertically (preserves current directory)
+- `|` - Simple vertical split
+- `h` - Navigate to left pane
+- `j` - Navigate to down pane
+- `k` - Navigate to up pane
+- `l` - Navigate to right pane
+- `z` - Toggle pane zoom
+- `c` - Kill pane
+- `x` - Swap panes
+
+**Resizing panes (repeatable):**
+- `,` - Resize left (20 units)
+- `.` - Resize right (20 units)
+- `-` - Resize down (7 units)
+- `=` - Resize up (7 units)
+
+**Other:**
+- `Ctrl-L` or `l` - Refresh client
+- `R` - Reload configuration
+- `K` - Clear screen (sends clear command)
+- `:` - Enter command mode
 
 ### Neovim Key Bindings
 
@@ -339,6 +412,8 @@ terminal/
 │   └── theme.nu          # One Dark Pro theme
 ├── starship/
 │   └── starship.toml     # Starship prompt config
+├── tmux/
+│   └── .tmux.conf        # Tmux configuration
 └── nvim/                 # Neovim configuration
     ├── README.md         # Detailed Neovim guide
     ├── init.lua

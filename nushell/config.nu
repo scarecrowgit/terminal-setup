@@ -30,3 +30,18 @@ alias ... = cd ../..
 $env.EDITOR = "nvim"
 $env.VISUAL = "nvim"
 $env.config.show_banner = false
+
+# Auto-start tmux on shell startup (if not already in a tmux session)
+if (($env | get -o TMUX) == null) {
+  # Check if tmux is installed
+  if (which tmux | is-not-empty) {
+    # Create session detached if it doesn't exist
+    try {
+      tmux new-session -d -s main -c $env.PWD
+    } catch {
+      # Session already exists, that's fine
+    }
+    # Now attach to it
+    tmux attach-session -t main
+  }
+}
