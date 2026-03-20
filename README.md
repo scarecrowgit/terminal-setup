@@ -108,9 +108,11 @@ ln -sf ~/terminal/nushell/theme.nu ~/Library/Application\ Support/nushell/theme.
 **Configuration includes:**
 - Starship prompt integration
 - One Dark Pro Monokai Darker theme
+- Vi edit mode for command line editing
 - Useful aliases (ll, la, v, g, gs, ga, gc, gp, gl, gd)
 - Editor set to nvim
 - No banner on startup
+- Auto-start tmux on shell startup
 
 ### 4. Install Starship Configuration
 
@@ -174,6 +176,7 @@ mkdir -p ~/.config/tmux
 - Mouse support enabled
 - 256 color support
 - Status bar at the top (macOS style)
+- 10ms escape-time for proper vi mode support in nushell
 
 **Starting tmux:**
 ```bash
@@ -257,13 +260,14 @@ The configuration includes these useful aliases:
 **Prefix key:** `Ctrl-A` (then press the key below)
 
 **Session and window management:**
+- `c` - Create new window (default tmux behavior)
 - `Ctrl-C` - Create new window (in home directory)
 - `Ctrl-D` - Detach from session
 - `Ctrl-A` - Go to last window
 - `H` - Previous window
 - `L` - Next window
 - `S` - Choose session
-- `w` or `W` - List windows
+- `w` or `Ctrl-W` - List windows
 - `r` - Rename window
 
 **Pane management:**
@@ -275,7 +279,7 @@ The configuration includes these useful aliases:
 - `k` - Navigate to up pane
 - `l` - Navigate to right pane
 - `z` - Toggle pane zoom
-- `c` - Kill pane
+- `q` - Kill pane
 - `x` - Swap panes
 
 **Resizing panes (repeatable):**
