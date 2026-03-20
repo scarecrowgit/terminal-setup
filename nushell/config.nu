@@ -10,6 +10,7 @@ use theme.nu
 $env.config = {
   color_config: (theme)
   show_banner: false
+  edit_mode: vi
 }
 
 # Aliases
