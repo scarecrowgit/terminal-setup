@@ -26,6 +26,7 @@ alias gl = git log
 alias gd = git diff
 alias .. = cd ..
 alias ... = cd ../..
+alias tmhelp = cat ~/terminal/tmux-cheatsheet.md
 
 # Environment
 $env.EDITOR = "nvim"
