@@ -1,0 +1,30 @@
+# One Dark Pro Monokai Darker
+# Based on VSCode theme
+
+# ANSI colors (normal)
+palette = 0=#121212
+palette = 1=#e06c75
+palette = 2=#98c379
+palette = 3=#e5c07b
+palette = 4=#61afef
+palette = 5=#c678dd
+palette = 6=#56b6c2
+palette = 7=#abb2bf
+
+# ANSI colors (bright)
+palette = 8=#5c6370
+palette = 9=#e06c75
+palette = 10=#98c379
+palette = 11=#e5c07b
+palette = 12=#61afef
+palette = 13=#c678dd
+palette = 14=#56b6c2
+palette = 15=#bbbbbb
+
+# UI colors
+background = #121212
+foreground = #bbbbbb
+cursor-color = #f8f8f0
+cursor-text = #121212
+selection-background = #3e4451
+selection-foreground = #d7dae0
