@@ -11,7 +11,7 @@ command_timeout = 500
 # Change the default formatting of the prompt
 format = """
 [┌───────────────────────────────────────────────────>](bold green)
-[│](bold green)$directory$git_branch$git_status$python$nodejs$rust$golang$docker_context
+[│](bold green)$directory$git_branch$git_status$python$kubernetes$rust$golang$docker_context
 [└─>](bold green) """
 
 # Change the default prompt characters
@@ -58,9 +58,17 @@ pyenv_version_name = false
 
 # Shows Node.js version
 [nodejs]
+disabled = true
 symbol = "⬢ "
 format = "via [$symbol($version )]($style)"
 style = "bold green"
+
+# Shows Kubernetes context
+[kubernetes]
+symbol = "☸ "
+format = 'via [$symbol$context( \($namespace\))]($style) '
+style = "cyan bold"
+disabled = false
 
 # Shows Rust version
 [rust]
