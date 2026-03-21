@@ -35,3 +35,5 @@ $env.PATH = ($env.PATH | split row (char esep) | append [
 # Starship prompt
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
+
+$env.TERM = "xterm-256color"
