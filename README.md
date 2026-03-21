@@ -160,13 +160,16 @@ ln -sf ~/terminal/nvim ~/.config/nvim
 ### 6. Install Tmux Configuration
 
 ```bash
-# Create config directory
-mkdir -p ~/.config/tmux
+# Create config directory and symlinks
+mkdir -p ~/.config/tmux ~/.tmux
+ln -sf ~/terminal/tmux/.tmux.conf ~/.config/tmux/tmux.conf
+ln -sf ~/terminal/tmux/plugins ~/.tmux/plugins
 
-# Symlinks are automatically created during installation
-# Main config: ~/.tmux.conf → ~/.config/tmux/tmux.conf
-# Reset config: ~/.config/tmux/tmux.reset.conf
+# Install TPM (Tmux Plugin Manager)
+git clone https://github.com/tmux-plugins/tpm ~/terminal/tmux/plugins/tpm
 ```
+
+Then inside tmux, press `prefix + I` to install all plugins.
 
 **Configuration includes:**
 - Ctrl-A as the prefix key
@@ -175,8 +178,13 @@ mkdir -p ~/.config/tmux
 - Smart pane splits that preserve current directory
 - Mouse support enabled
 - 256 color support
-- Status bar at the top (macOS style)
+- Status bar at the top (macOS style) with weather, date, and time
 - 10ms escape-time for proper vi mode support in nushell
+- TPM (Tmux Plugin Manager) with plugins stored in `~/terminal/tmux/plugins/`
+
+**Plugins:**
+- [xamut/tmux-weather](https://github.com/xamut/tmux-weather) - Weather in status bar (location configured via `@tmux-weather-location`)
+- [ilya-manin/tmux-spotify](https://github.com/ilya-manin/tmux-spotify) - Spotify controls menu (`prefix + T`)
 
 **Starting tmux:**
 ```bash
@@ -287,6 +295,9 @@ The configuration includes these useful aliases:
 - `.` - Resize right (20 units)
 - `-` - Resize down (7 units)
 - `=` - Resize up (7 units)
+
+**Plugins:**
+- `T` - Open Spotify controls menu (tmux-spotify)
 
 **Other:**
 - `Ctrl-L` or `l` - Refresh client
@@ -417,7 +428,8 @@ terminal/
 ├── starship/
 │   └── starship.toml     # Starship prompt config
 ├── tmux/
-│   └── .tmux.conf        # Tmux configuration
+│   ├── .tmux.conf        # Tmux configuration
+│   └── plugins/          # TPM plugins (gitignored)
 └── nvim/                 # Neovim configuration
     ├── README.md         # Detailed Neovim guide
     ├── init.lua
@@ -441,10 +453,13 @@ Configurations are symlinked, so changes here automatically apply.
 
 ```bash
 # Update Homebrew packages
-brew upgrade ghostty nushell starship neovim yazi
+brew upgrade ghostty nushell starship neovim yazi tmux
 
 # Update Neovim plugins
 nvim +Lazy sync +qa
+
+# Update Tmux plugins
+~/.tmux/plugins/tpm/bin/update_plugins all
 ```
 
 ## Backup
