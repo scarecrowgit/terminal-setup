@@ -37,3 +37,4 @@ mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 
 $env.TERM = "xterm-256color"
+$env.PATH = ($env.PATH | append "/Applications/Obsidian.app/Contents/MacOS")
