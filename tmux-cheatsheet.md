@@ -62,10 +62,3 @@
 | `Ctrl+A K` | Clear screen |
 | `Ctrl+A X` | Lock server |
 
-## Your Config Highlights
-- ✅ Windows start at **1** (not 0)
-- ✅ **Vi mode** for copy mode navigation
-- ✅ Status bar at **top** (macOS style)
-- ✅ Large history limit (**1M**)
-- ✅ System clipboard integration enabled
-- ✅ **Vim-like pane navigation** (hjkl)
