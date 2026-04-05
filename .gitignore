@@ -1,2 +1,2 @@
 *.bak
-./nushell/autoload/env_misc.nu
+nushell/autoload/env_misc.nu
