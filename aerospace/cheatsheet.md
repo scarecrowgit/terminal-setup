@@ -14,7 +14,7 @@ RESIZE
 LAYOUT
   alt-slash            Toggle tiles (horizontal/vertical)
   alt-comma            Toggle accordion layout
-  alt-shift-f          Toggle floating/tiling
+  alt-ctrl-f           Toggle floating/tiling
   alt-ctrl-shift-f     Fullscreen
 
 WORKSPACES
@@ -24,16 +24,16 @@ WORKSPACES
   alt-shift-tab        Move workspace to next monitor
 
 APPS (quick launch)
-  alt-g                Ghostty
+  alt-g                Ghostty (new window)
   alt-f                Finder
   alt-o                Obsidian
   alt-m                Mattermost
   alt-s                Safari
   alt-c                Chrome
   alt-t                Telegram
-  alt-b                Brain.fm
   alt-e                Final Cut Pro
   alt-z                Zen
+  alt-n                Notion
 
 SERVICE MODE  (alt-shift-;)
   r                    Reset/flatten layout
