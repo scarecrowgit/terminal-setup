@@ -7,4 +7,3 @@ window-decoration = true
 macos-option-as-alt = true
 keybind = shift+enter=text:\x1b\r
 confirm-close-surface = false
-command = /Users/ivantaruraev/.local/bin/ghostty-tmux.sh
