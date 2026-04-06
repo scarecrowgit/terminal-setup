@@ -63,8 +63,7 @@ inner.vertical   = 10
 outer.left       = 10
 outer.right      = 10
 outer.bottom     = 10
-outer.top        = 30
-
+outer.top        = [{ monitor."^Built-in.*$" = 10 }, { monitor."^27G4.*$" = 10 }, 10]
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -157,20 +156,25 @@ alt-t = 'exec-and-forget open -a /Applications/Telegram.app'
 alt-o = 'exec-and-forget open -a /Applications/Obsidian.app'
 alt-m = 'exec-and-forget open -a /Applications/Mattermost.app'
 alt-g = '''exec-and-forget osascript -e '
-tell application "Ghostty"
-    activate
-end tell
-delay 0.1
 tell application "System Events"
-    keystroke "n" using command down
-end tell'
+    set ghosttyRunning to (count of (processes whose name is "Ghostty")) > 0
+end tell
+if ghosttyRunning then
+    tell application "Ghostty" to activate
+    delay 0.1
+    tell application "System Events"
+        keystroke "n" using command down
+    end tell
+else
+    tell application "Ghostty" to activate
+end if'
 '''
 alt-f = 'exec-and-forget open -a /System/Library/CoreServices/Finder.app'
 alt-e = 'exec-and-forget open -a "/Applications/Final Cut Pro.app"'
 alt-z = 'exec-and-forget open -a /Applications/Zen.app'
 alt-s = 'exec-and-forget open -a /Applications/Safari.app'
 alt-c = 'exec-and-forget open -a /Applications/Google\ Chrome.app'
-
+alt-n = 'exec-and-forget open -a /Applications/Notion.app/'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
