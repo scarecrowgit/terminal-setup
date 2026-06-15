@@ -1,2 +1,3 @@
 *.bak
 nushell/autoload/env_misc.nu
+zsh/autoload/env_misc.zsh

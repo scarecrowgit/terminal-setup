@@ -1,12 +1,12 @@
 # Terminal Setup Guide
 
-A modern terminal setup with Ghostty, Nushell, Starship, Neovim, Tmux, and AeroSpace with a cohesive One Dark Pro Monokai Darker theme.
+A modern terminal setup with Ghostty, Zsh, Starship, Neovim, Tmux, and AeroSpace with a cohesive One Dark Pro Monokai Darker theme.
 
 ## Overview
 
 This repository contains configurations for:
 - **Ghostty** - Modern GPU-accelerated terminal emulator
-- **Nushell** - Modern shell with structured data pipelines
+- **Zsh** - POSIX shell with vi mode, aliases, and Starship prompt
 - **Starship** - Fast, customizable shell prompt
 - **Neovim** - Modern text editor with LSP, file manager, and custom theme
 - **Tmux** - Terminal multiplexer for managing panes and windows
@@ -23,9 +23,9 @@ All components share a unified **One Dark Pro Monokai Darker** color theme for v
    brew install --cask ghostty
    ```
 
-2. **Nushell** - Shell
+2. **Zsh** - Shell
    ```bash
-   brew install nushell
+   brew install zsh
    ```
 
 3. **Starship** - Prompt
@@ -70,7 +70,7 @@ ln -sf ~/terminal/ghostty/config ~/.config/ghostty/config
 ln -sf ~/terminal/ghostty/themes ~/.config/ghostty/themes
 ```
 
-Ghostty opens a plain Nushell session. No auto-wrapping in tmux — start tmux manually when needed.
+Ghostty opens your default shell. No auto-wrapping in tmux — start tmux manually when needed.
 
 **Configuration includes:**
 - One Dark Pro Monokai Darker theme
@@ -78,24 +78,17 @@ Ghostty opens a plain Nushell session. No auto-wrapping in tmux — start tmux m
 - Font size: 13
 - macOS Option key as Alt
 
-### 3. Install Nushell Configuration
+### 3. Install Zsh Configuration
 
 ```bash
-mkdir -p ~/Library/Application\ Support/nushell
-ln -sf ~/terminal/nushell/config.nu ~/Library/Application\ Support/nushell/config.nu
-ln -sf ~/terminal/nushell/env.nu ~/Library/Application\ Support/nushell/env.nu
-ln -sf ~/terminal/nushell/theme.nu ~/Library/Application\ Support/nushell/theme.nu
-ln -sf ~/terminal/nushell/autoload ~/Library/Application\ Support/nushell/autoload
+printf '\nif [ -f "$HOME/terminal/zsh/.zshrc" ]; then\n  source "$HOME/terminal/zsh/.zshrc"\nfi\n' >> ~/.zshrc
 ```
-
-> **Linux:** Use `~/.config/nushell` instead of `~/Library/Application Support/nushell`.
 
 **Configuration includes:**
 - Starship prompt integration
-- One Dark Pro Monokai Darker theme
 - Vi edit mode
-- Core aliases (see [Nushell Aliases](#nushell-aliases))
-- `autoload/` directory for per-machine overrides (see [Autoload](#nushell-autoload))
+- Core aliases (see [Zsh Aliases](#zsh-aliases))
+- `autoload/` directory for per-machine overrides (see [Zsh Autoload](#zsh-autoload))
 
 ### 4. Install Starship Configuration
 
@@ -139,17 +132,17 @@ AeroSpace starts at login automatically (`start-at-login = true`).
 
 ## Post-Installation
 
-### Set Nushell as Default Shell
+### Set Zsh as Default Shell
 
 ```bash
-echo $(which nu) | sudo tee -a /etc/shells
-chsh -s $(which nu)
+echo $(which zsh) | sudo tee -a /etc/shells
+chsh -s $(which zsh)
 ```
 
 ### Verify Installation
 
 ```bash
-$nu.version        # Nushell version
+zsh --version
 starship --version
 nvim --version
 yazi --version
@@ -158,7 +151,7 @@ aerospace --version
 
 ## Usage
 
-### Nushell Aliases
+### Zsh Aliases
 
 **File operations:**
 | Alias | Command |
@@ -187,31 +180,31 @@ aerospace --version
 | `aeroshelp` | Show AeroSpace cheatsheet |
 | `wttr` | Weather for Batumi |
 
-### Nushell Autoload
+### Zsh Autoload
 
-The `autoload/` directory is loaded automatically by Nushell on startup. Use it for machine-specific aliases, env vars, and overrides — without touching the shared `config.nu` or `env.nu`.
+The `autoload/` directory is sourced automatically by `zsh/.zshrc` on startup. Use it for machine-specific aliases, env vars, and overrides without touching the shared `.zshrc`.
 
 **Current autoload files:**
-- `autoload/aliases.nu` — extra aliases (`aeroshelp`, `wttr`)
-- `autoload/env_misc.nu` — extra env vars (`PATH` additions, `HOMEBREW_NO_ENV_HINTS`)
+- `autoload/aliases.zsh` — extra aliases (`aeroshelp`, `wttr`, `tm`)
+- `autoload/env_misc.zsh` — extra env vars (`PATH` additions, `HOMEBREW_NO_ENV_HINTS`)
 
 **Adding your own overrides:**
 
-Create any `.nu` file in `autoload/`:
-```nu
-# autoload/my_overrides.nu
+Create any `.zsh` file in `autoload/`:
+```zsh
+# autoload/my_overrides.zsh
 
 # Override an existing alias
-alias v = hx   # use helix instead of nvim
+alias v='hx'   # use helix instead of nvim
 
 # Add env var
-$env.MY_VAR = "value"
+export MY_VAR="value"
 
 # Add PATH entry
-$env.PATH = ($env.PATH | append "/my/custom/bin")
+path+=("/my/custom/bin")
 ```
 
-The file is picked up automatically — no changes to `config.nu` needed. This keeps machine-specific config out of git if `autoload/` is gitignored, or versioned if you want to share it.
+The file is picked up automatically. This keeps machine-specific config out of git if `autoload/` entries are gitignored, or versioned if you want to share them.
 
 ### Tmux Key Bindings
 
@@ -362,16 +355,16 @@ background-opacity = 0.8      # 0.0 (transparent) to 1.0 (opaque)
 background-blur-radius = 10   # 0–20
 ```
 
-### Add Nushell Aliases or Env Vars
+### Add Zsh Aliases or Env Vars
 
-Create a file in `~/terminal/nushell/autoload/`:
-```nu
-# autoload/my_stuff.nu
-alias foo = bar --flag
-$env.MY_TOKEN = "abc"
+Create a file in `~/terminal/zsh/autoload/`:
+```zsh
+# autoload/my_stuff.zsh
+alias foo='bar --flag'
+export MY_TOKEN="abc"
 ```
 
-No need to edit `config.nu`. The autoload directory is sourced automatically.
+No need to edit `zsh/.zshrc`. The autoload directory is sourced automatically.
 
 ### Customize Starship Prompt
 
@@ -388,30 +381,29 @@ Edit `~/terminal/starship/starship.toml`. See [Starship docs](https://starship.r
 
 ### Ghostty still starts tmux
 
-Check `~/.config/ghostty/config` — ensure there is no `command =` line. Also check `~/Library/Application Support/nushell/config.nu` for any tmux auto-start block.
+Check `~/.config/ghostty/config` — ensure there is no `command =` line. Also check `~/.zshrc` or `~/terminal/zsh/.zshrc` for any tmux auto-start block.
 
 ### Ghostty config not loading
 
 1. Check symlink: `ls -la ~/.config/ghostty/`
 2. Quit and reopen Ghostty — there is no hot reload.
 
-### Nushell doesn't show Starship prompt
+### Zsh doesn't show Starship prompt
 
 1. Check: `starship --version`
-2. Manually regenerate cache:
+2. Check init directly:
    ```bash
-   mkdir ~/.cache/starship
-   starship init nu | save -f ~/.cache/starship/init.nu
+   eval "$(starship init zsh)"
    ```
 
 ### Autoload file not being picked up
 
 Ensure the symlink is in place:
 ```bash
-ls -la ~/Library/Application\ Support/nushell/autoload/
+ls -la ~/terminal/zsh/autoload/
 ```
 
-Files must end in `.nu` to be sourced.
+Files must end in `.zsh` to be sourced.
 
 ### AeroSpace bindings not working
 
@@ -443,13 +435,11 @@ terminal/
 ├── ghostty/
 │   ├── config                # Ghostty config
 │   └── themes/               # Color themes
-├── nushell/
-│   ├── config.nu             # Main config (aliases, theme, editor)
-│   ├── env.nu                # PATH, ENV_CONVERSIONS, Starship init
-│   ├── theme.nu              # One Dark Pro theme
+├── zsh/
+│   ├── .zshrc                # Main config (aliases, env, Starship, vi mode)
 │   └── autoload/
-│       ├── aliases.nu        # Extra aliases (aeroshelp, wttr)
-│       └── env_misc.nu       # Extra env vars
+│       ├── aliases.zsh       # Extra aliases (aeroshelp, wttr, tm)
+│       └── env_misc.zsh      # Extra env vars
 ├── starship/
 │   └── starship.toml
 ├── tmux/
@@ -470,7 +460,7 @@ terminal/
 cd ~/terminal && git pull
 
 # Update Homebrew packages
-brew upgrade ghostty nushell starship neovim yazi tmux
+brew upgrade ghostty zsh starship neovim yazi tmux
 
 # Update Neovim plugins
 nvim +Lazy sync +qa
@@ -482,7 +472,7 @@ nvim +Lazy sync +qa
 ## Resources
 
 - [Ghostty Documentation](https://ghostty.org/docs)
-- [Nushell Book](https://www.nushell.sh/book/)
+- [Zsh Documentation](https://zsh.sourceforge.io/Doc/)
 - [Starship Configuration](https://starship.rs/config/)
 - [Neovim Documentation](https://neovim.io/doc/)
 - [AeroSpace Guide](https://nikitabobko.github.io/AeroSpace/guide)
